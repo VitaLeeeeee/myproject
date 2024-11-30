@@ -1,0 +1,37 @@
+MyBatis 配置：
+mybatis-config.xml 示例：
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <typeAliases>
+        <typeAlias alias="User" type="com.government.warehouse.model.User"/>
+    </typeAliases>
+
+    <mappers>
+        <mapper resource="com/government/warehouse/mapper/UserMapper.xml"/>
+    </mappers>
+</configuration>
+
+UserMapper.xml 示例：
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapper namespace="com.government.warehouse.mapper.UserMapper">
+
+    <!-- Select user by username -->
+    <select id="selectUserByUsername" resultType="User">
+        SELECT id, username, password, email
+        FROM users
+        WHERE username = #{username}
+    </select>
+
+    <!-- Insert new user -->
+    <insert id="insertUser" parameterType="User">
+        INSERT INTO users (username, password, email)
+        VALUES (#{username}, #{password}, #{email})
+    </insert>
+
+</mapper>
